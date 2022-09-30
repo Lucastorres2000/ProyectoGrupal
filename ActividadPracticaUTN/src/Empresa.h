@@ -22,15 +22,16 @@ typedef struct{
 	float precio;
 	int isEmpty;
 
-}eEmpresa;
+}eProducto;
 
-int inicializarProducto(eEmpresa* Lista,int cantMax);
-int buscarLibre(eEmpresa* List, int size);
-int cargarProducto(eEmpresa* Lista, int size, int auxIDProducto, char auxDescripcion[], int auxNacionalidad, int auxTipo ,float auxPrecio );
-int altaProducto(eEmpresa* Lista, int size);
-int bajaProducto(eEmpresa Lista);
-int modificarProducto(eEmpresa Lista);
-int mostrarProductos(eEmpresa Lista[], int  size );
-void mostrarUnProducto(eEmpresa Lista);
+int inicializarProducto(eProducto* Lista,int cantMax);
+int buscarLibre(eProducto* List, int size);
+int BuscarProductoPorId(eProducto Lista[], int tam, int id);
+int cargarProducto(eProducto* Lista, int size, int auxIDProducto, char auxDescripcion[], int auxNacionalidad, int auxTipo ,float auxPrecio );
+int altaProducto(eProducto Lista[], int size, int* ID);
+int bajaProducto(eProducto Lista);
+int modificarProducto(eProducto* Lista,int size );
+int mostrarProductos(eProducto Lista[], int  size );
+void mostrarUnProducto(eProducto Lista);
 
 #endif /* EMPRESA_H_ */

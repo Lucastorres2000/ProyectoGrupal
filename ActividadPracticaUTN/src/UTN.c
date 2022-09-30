@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define EXITO 0
+#define EXITO 1
 #define ERROR -1
 
 static int getString(char* string, int len);
@@ -23,7 +23,7 @@ int utnGetNumber(int* pNumber, char* message, char* errorMessage, int min, int m
 
     if(pNumber != NULL && message != NULL && errorMessage != NULL && min<max && max>min && retries>0)
     {
-    	while(retries>0)
+    	while(retries > 0)
         {
             printf("%s",message);
             if(getInt(&auxInt) == ERROR || (auxInt < min || auxInt > max))

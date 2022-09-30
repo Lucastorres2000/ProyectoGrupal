@@ -19,16 +19,16 @@
 //#define OCUPADO 1
 //#define ERROR -1
 
-#define CANT_MAX 1
+#define CANT_MAX 3
 
 int main(void) {
 
 	setbuf(stdout,NULL);
-	int IDIncremental  = 0;
+	int IDIncremental = 1000;
 
-	eEmpresa eEmpresaLista[CANT_MAX];
+	eProducto eProducto[CANT_MAX];
 
-	inicializarProducto(eEmpresaLista,CANT_MAX);
+	inicializarProducto(eProducto,CANT_MAX);
 
 
 	int opcion;
@@ -40,13 +40,13 @@ int main(void) {
 		printf("\n4. Mostrar");
 		printf("\n5. Finalizar");
 
-	utnGetNumber(&opcion,"Ingrese una opcion : ","Opcion Incorrecta",1,5,99);
+	utnGetNumber(&opcion,"\nIngrese una opcion : ","Opcion Incorrecta",1,5,99);
 
 	switch(opcion){
 
 
 		case 1:
-				altaProducto(eEmpresaLista, CANT_MAX);
+				altaProducto(eProducto,CANT_MAX,&IDIncremental);
 
 
 		break;
@@ -60,14 +60,14 @@ int main(void) {
 
 		case 3:
 
-				printf("Entro bien 3");
+				modificarProducto(eProducto,CANT_MAX );
 
 		break;
 
 
 		case 4:
 			printf("Entre bien 4");
-			mostrarProductos(eEmpresaLista, CANT_MAX);
+			mostrarProductos(eProducto, CANT_MAX);
 
 		break;
 
