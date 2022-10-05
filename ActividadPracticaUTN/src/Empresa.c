@@ -72,9 +72,9 @@ int altaProducto(eProducto Lista[], int size, int* ID){
 	int retorno = ERROR;
 
 	if(utnGetName(auxProducto.descripcion,200,"Ingrese Descripcion: ","Error  en Descripcion",3) == SUCCESS &&
-			utnGetNumber(&auxProducto.nacionalidad,"Ingrese nacionalidad :  ","ERROR",1,4,3) == SUCCESS &&
-			utnGetNumber(&auxProducto.tipo,"Ingrese el tipo : ","ERROR",1,4,3) == SUCCESS &&
-			utnGetFloatNumber(&auxProducto.precio,"Ingrese el precio : ","ERROR",1,999999,3) == SUCCESS &&
+			utnGetNumber(&auxProducto.nacionalidad,"Ingrese Nacionalidad  \n EEUU : 1 \n CHINA : 2 \n OTRO : 3 ","ERROR",1,4,3) == SUCCESS &&
+			utnGetNumber(&auxProducto.tipo,"Ingrese tipo \n IPHONE : 1 \n MAC : 2 \n OTRO : 3 \n","ERROR",1,4,3) == SUCCESS &&
+			utnGetFloatNumber(&auxProducto.precio,"Ingrese el precio : ","ERROR",1,100000,3) == SUCCESS &&
 			cargarProducto(Lista,size,*ID,auxProducto.descripcion,auxProducto.nacionalidad,auxProducto.tipo,auxProducto.precio) == SUCCESS )
 	{
 		(*ID)++;
@@ -109,9 +109,9 @@ int cargarProducto(eProducto Lista[], int size, int auxIDProducto, char auxDescr
 
 void mostrarUnProducto(eProducto Lista){
 
-	//printf("\nID \t DESCRP \t NACIO \t TIPO \t PRECIO");
 
-	printf("\n\t%d \t%s \t%d \t%d \t%f ", Lista.idProducto,
+
+	printf("\n || %5d | %5s | %5d | %5d | \t%.2f \t||\n", Lista.idProducto,
 											Lista.descripcion,
 											Lista.nacionalidad,
 											Lista.tipo,
@@ -127,11 +127,12 @@ int mostrarProductos(eProducto Lista[],int  size ){
 
 		if(Lista !=  NULL && size > 0 )
 		{
-
+			printf("\n\tID \t DESCRP \t NACIO \t TIPO \t   PRECIO");
 			for(int i = 0 ; i < size ; i++ )
 			{
 				if(Lista[i].isEmpty == OCUPADO )
 				{
+
 						mostrarUnProducto(Lista[i]);
 				}
 
@@ -151,7 +152,7 @@ int modificarProducto(eProducto* Lista,int size ){
 
 	eProducto bufferProducto;
 	utnGetNumber(&auxID,"Ingrese ID a modificar","ERROR",1,10000,3);
-	index=BuscarProductoPorId(Lista, size,auxID);
+	index=BuscarProductoPorId(Lista ,size ,auxID );
 
 	if(Lista != NULL  && size > 0  && Lista[index].isEmpty == OCUPADO)
 	{
@@ -166,54 +167,103 @@ int modificarProducto(eProducto* Lista,int size ){
 			 printf("\n 4 > Precio.");
 			 printf("\n 5 > Volver al menu principal ");
 
-			 utnGetNumber(&opcion, "Elija la opcion que desea modificar : ","Opcion no valida",1,5,3);
+			 utnGetNumber(&opcion,"\nElija la opcion que desea modificar : ","Opcion no valida",1,5,3);
 
 
 			switch(opcion)
 			{
 
 			case 1:
-					if(utnGetAlphanumeric(bufferProducto.descripcion,200, "Ingrese la descripcion ","Error",3)==SUCCESS)
+					if(utnGetAlphanumeric(bufferProducto.descripcion,200, "Ingrese la descripcion ","Error",3) == SUCCESS )
 					{
 						strcpy(Lista[index].descripcion,bufferProducto.descripcion);
 						retorno=SUCCESS;
 					}
+
 				break;
 
 			case 2:
+					if(utnGetNumber(&bufferProducto.nacionalidad,"Ingrese Nacionalidad  \n EEUU : 1 \n CHINA : 2 \n OTRO : 3 ", "\n! -- ERROR -- !\n",1, 3, 3)== SUCCESS )
+					{
+
+						Lista[index].nacionalidad = bufferProducto.nacionalidad;
+						retorno = SUCCESS ;
+					}
 
 				break;
 
 			case 3:
+					if(utnGetNumber(&bufferProducto.tipo,"Ingrese tipo \n IPHONE : 1 \n MAC : 2 \n OTRO : 3 \n"," \n  ! -- ERROR -- !\n ", 1, 3,3) == SUCCESS )
+					{
+						Lista[index].tipo = bufferProducto.tipo ;
+						retorno = SUCCESS ;
+					}
 
 				break;
 
 			case 4:
+					if(utnGetFloatNumber(&bufferProducto.precio,"\nIngrese el precio :  ","\n ! - - Error - - ! \n",1,100000,3) == SUCCESS )
+					{
+						Lista[index].precio = bufferProducto.precio ;
+						retorno = SUCCESS ;
+					}
 
 				break;
 
 			case 5:
+					printf("\n Volviendo al menu principal ... \n");
 
 				break;
 
-
-
-
-
-
 			}
-
-
-
-
-
 
 		}while(opcion != 5);
 
+	}
+
+	return retorno;
+}
+int forzarDatos(eProducto Lista[], int size ){
+
+	int	retorno = ERROR;
+
+	if(Lista != NULL && size > 0 )
+	{
+		int auxIDProducto[10] = {1000,1001,1002,1003,1004,1005,1006,1007,1008,1009};
+
+		int auxNacionalidad[10] = {1,2,3,3,2,1,2,3,1,2};
+
+		int auxTipo[10] = {3,2,1,3,2,1,3,2,1,2};
+
+		char auxDescripcion[10][999]={"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB ",
+										"Memoria : 64 GB "};
+
+		float auxPrecio[10]={1500,1000,1700,2000,2600,560,10000,1200,1000,999};
+		int auxIsEmpty[10]={OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO};
+
+		for(int i = 0 ; i < size ; i ++ )
+		{
+			Lista[i].idProducto = auxIDProducto[i];
+			Lista[i].nacionalidad = auxNacionalidad[i];
+			Lista[i].tipo = auxTipo[i];
+			Lista[i].precio = auxPrecio[i];
+			strcpy(Lista[i].descripcion,auxDescripcion[i]);
+			Lista[i].isEmpty = auxIsEmpty[i];
+			retorno = SUCCESS ;
+		}
 
 
 	}
 
-
 	return retorno;
+
 }
+

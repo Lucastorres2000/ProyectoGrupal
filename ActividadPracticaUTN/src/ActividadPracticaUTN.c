@@ -19,7 +19,7 @@
 //#define OCUPADO 1
 //#define ERROR -1
 
-#define CANT_MAX 3
+#define CANT_MAX 10
 
 int main(void) {
 
@@ -38,7 +38,8 @@ int main(void) {
 		printf("\n2. Baja");
 		printf("\n3. Modificacion");
 		printf("\n4. Mostrar");
-		printf("\n5. Finalizar");
+		printf("\n5. Forzar Datos");
+		printf("\n6. Finalizar");
 
 	utnGetNumber(&opcion,"\nIngrese una opcion : ","Opcion Incorrecta",1,5,99);
 
@@ -46,7 +47,13 @@ int main(void) {
 
 
 		case 1:
-				altaProducto(eProducto,CANT_MAX,&IDIncremental);
+				if(buscarLibre(eProducto,CANT_MAX)== ERROR)
+				{
+					printf("\n Ya no hay espacio !!!\n ");
+				}else{
+
+					altaProducto(eProducto,CANT_MAX,&IDIncremental);
+				}
 
 
 		break;
@@ -66,15 +73,14 @@ int main(void) {
 
 
 		case 4:
-			printf("Entre bien 4");
-			mostrarProductos(eProducto, CANT_MAX);
+
+				mostrarProductos(eProducto, CANT_MAX);
 
 		break;
 
 
 		case 5:
-
-				printf("Cerrando programa  ...");
+				forzarDatos(eProducto,CANT_MAX);
 
 		break;
 
@@ -83,7 +89,7 @@ int main(void) {
 
 	system("pause");
 	system("cls");
-	}while(opcion != 5);
+	}while(opcion != 6);
 
 
 
