@@ -15,9 +15,7 @@
 #include "UTN.h"
 #include "Empresa.h"
 
-//#define VACIO 0
-//#define OCUPADO 1
-//#define ERROR -1
+
 
 #define CANT_MAX 10
 
@@ -29,6 +27,11 @@ int main(void) {
 	eProducto eProducto[CANT_MAX];
 
 	inicializarProducto(eProducto,CANT_MAX);
+
+	int flagCase1 = ERROR ;
+	//int flagCase2 = ERROR ;
+	//int flagCase3 = ERROR ;
+	//int flagCase4 = ERROR ;
 
 
 	int opcion;
@@ -51,8 +54,10 @@ int main(void) {
 				{
 					printf("\n Ya no hay espacio !!!\n ");
 				}else{
-
-					altaProducto(eProducto,CANT_MAX,&IDIncremental);
+					if(altaProducto(eProducto,CANT_MAX,&IDIncremental))
+					{
+						flagCase1 = SUCCESS ;
+					}
 				}
 
 
@@ -61,26 +66,60 @@ int main(void) {
 
 		case 2:
 
-				printf("Entro bien 2");
+				if(flagCase1 == SUCCESS )
+				{
+					bajaProducto(eProducto,CANT_MAX);
+
+				}else{
+
+					printf("\nPrimero de deben cargar Productos ..\n ");
+				}
+
+
 		break;
 
 
 		case 3:
+				if(flagCase1 == SUCCESS )
+				{
+					modificarProducto(eProducto,CANT_MAX );
 
-				modificarProducto(eProducto,CANT_MAX );
+				}else{
+
+					printf("\nPrimero de deben cargar Productos ..\n ");
+				}
 
 		break;
 
 
 		case 4:
+				if(flagCase1 == SUCCESS )
+				{
+					mostrarProductos(eProducto, CANT_MAX);
+					mostrarPorPrecio(eProducto,CANT_MAX);
 
-				mostrarProductos(eProducto, CANT_MAX);
+				}else{
+
+					printf("\nPrimero de deben cargar Productos ..\n ");
+				}
+
+
 
 		break;
 
 
 		case 5:
-				forzarDatos(eProducto,CANT_MAX);
+
+			if(flagCase1 == SUCCESS )
+			{
+				printf("No se pueden forzar los datos cuando ya hay datos Cargados ..");
+			}else{
+				if(forzarDatos(eProducto,CANT_MAX)== SUCCESS )
+				{
+					printf("Carga Forzada Exitosa");
+					flagCase1 = SUCCESS;
+				}
+			}
 
 		break;
 

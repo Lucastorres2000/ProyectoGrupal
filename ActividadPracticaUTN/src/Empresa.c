@@ -26,6 +26,22 @@ int inicializarProducto(eProducto* Lista,int cantMax){
 
 	return retorno;
 }
+int Swap(eProducto*  unProducto,eProducto*  otroProductoNext){
+
+	int  retorno= ERROR;
+		if(unProducto != NULL && otroProductoNext != NULL)
+		{
+			eProducto auxProducto;
+			auxProducto = *unProducto;
+			*unProducto = *otroProductoNext;
+			*otroProductoNext = auxProducto;
+			retorno = SUCCESS;
+		}
+
+
+	return retorno;
+
+}
 
 int buscarLibre(eProducto List[], int size){
 
@@ -246,7 +262,7 @@ int forzarDatos(eProducto Lista[], int size ){
 										"Memoria : 64 GB ",
 										"Memoria : 64 GB "};
 
-		float auxPrecio[10]={1500,1000,1700,2000,2600,560,10000,1200,1000,999};
+		float auxPrecio[10]={5,4,3,2,1,6,7,8,9,10};
 		int auxIsEmpty[10]={OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO,OCUPADO};
 
 		for(int i = 0 ; i < size ; i ++ )
@@ -267,3 +283,61 @@ int forzarDatos(eProducto Lista[], int size ){
 
 }
 
+int bajaProducto(eProducto Lista[], int size ){
+	int retorno = ERROR ;
+	int auxID;
+	int index;
+
+	if(Lista != NULL && size > 0 )
+	{
+		mostrarProductos(Lista,size);
+		utnGetNumber(&auxID,"\nIngrese el ID que desea eliminar : ","ERROR",1000,10000,3);
+		index=BuscarProductoPorId(Lista,size,auxID);
+
+		if(index == ERROR)
+		{
+			printf("\nEl ID no existe ..\n ");
+		}else{
+			Lista[index].isEmpty = VACIO ;
+		}
+
+
+	}
+
+
+	return retorno;
+}
+
+int mostrarPorPrecio(eProducto Lista[],int size)
+{
+	int  retorno=ERROR;
+	eProducto bufferProducto;
+
+	if(Lista != NULL && size > 0)
+	{
+		for(int i = 0 ; i < size ; i++ )
+		{
+			for(int  j = i ; j < size - 1 ; j ++)
+			{
+				if(Lista[i].precio > Lista[j].precio)
+				{
+					//Swap(&Lista[i],&Lista[j]);
+					bufferProducto = Lista[j] ;
+					Lista[j] = Lista[i] ;
+					Lista[i] = bufferProducto;
+
+				}
+			}
+		}
+
+
+
+
+	}
+
+
+	return retorno;
+
+
+
+}

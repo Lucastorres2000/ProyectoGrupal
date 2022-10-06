@@ -26,6 +26,8 @@ typedef struct{
 
 int inicializarProducto(eProducto* Lista,int cantMax);
 
+int Swap(eProducto* unProducto,eProducto* otroProducto);
+
 int buscarLibre(eProducto* List, int size);
 
 int BuscarProductoPorId(eProducto Lista[], int tam, int id);
@@ -34,7 +36,7 @@ int cargarProducto(eProducto* Lista, int size, int auxIDProducto, char auxDescri
 
 int altaProducto(eProducto Lista[], int size, int* ID);
 
-int bajaProducto(eProducto Lista);
+int bajaProducto(eProducto Lista[], int size );
 
 int modificarProducto(eProducto* Lista,int size );
 
@@ -43,4 +45,6 @@ int mostrarProductos(eProducto Lista[], int  size );
 void mostrarUnProducto(eProducto Lista);
 
 int forzarDatos(eProducto Lista[], int size );
+
+int mostrarPorPrecio(eProducto Lista[],int size);
 #endif /* EMPRESA_H_ */
