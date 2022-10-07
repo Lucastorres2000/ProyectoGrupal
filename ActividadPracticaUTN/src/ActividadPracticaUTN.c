@@ -14,10 +14,10 @@
 
 #include "UTN.h"
 #include "Empresa.h"
-
-
+#include "tipoProducto.h"
 
 #define CANT_MAX 10
+#define CANT_TIPOS 3
 
 int main(void) {
 
@@ -25,8 +25,10 @@ int main(void) {
 	int IDIncremental = 1000;
 
 	eProducto eProducto[CANT_MAX];
+	eTipoProducto listaTipoProducto[CANT_TIPOS];
 
 	inicializarProducto(eProducto,CANT_MAX);
+	inicializarProductos(listaTipoProducto,CANT_TIPOS);
 
 	int flagCase1 = ERROR ;
 	//int flagCase2 = ERROR ;
@@ -73,6 +75,7 @@ int main(void) {
 				}else{
 
 					printf("\nPrimero de deben cargar Productos ..\n ");
+
 				}
 
 
@@ -100,7 +103,13 @@ int main(void) {
 
 				}else{
 
-					printf("\nPrimero de deben cargar Productos ..\n ");
+					//printf("\nPrimero de deben cargar Productos ..\n ");
+					for(int  i  = 0 ; i < CANT_TIPOS ; i ++ )
+					{
+						printf("\n%5d %5s ",listaTipoProducto[i].IDtipoProducto,
+										listaTipoProducto[i].descripcion);
+					}
+
 				}
 
 
